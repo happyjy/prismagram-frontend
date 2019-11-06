@@ -1,5 +1,5 @@
 export const defaults = {
-  isLoggedIn: localStorage.getItem("token") !== null ? true : false
+  isLoggedIn: Boolean(localStorage.getItem("token")) || false
 };
 
 // parent가 달린 graphQl mutation
