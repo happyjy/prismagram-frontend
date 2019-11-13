@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Theme from "../Styles/Theme";
+// import Theme from "../Styles/Theme";
 
 const Footer = styled.footer`
     display: flex;
