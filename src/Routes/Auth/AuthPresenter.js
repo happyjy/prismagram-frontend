@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Input from "../../Components/Input"; 
 import Button from "../../Components/Button";
@@ -53,19 +53,19 @@ export default ({
   lastName,
   email,
   setAction,
-  onLogin
+  onSubmit
 }) => {
   console.log("!@#!@# action: ", action);
   return (
     <Wrapper>
       <Form>
         {action === "logIn" ? (
-          <form onSubmit={onLogin}>
-            <Input placeholder={"Username"} {...username}/>
+          <form onSubmit={onSubmit}>
+            <Input placeholder={"Email"} {...email} type="email"/>
             <Button text={"Log in"} />
           </form>
         ) : (
-          <form onSubmit={onLogin}>
+          <form onSubmit={onSubmit}>
             <Input placeholder={"First name"} {...firstName}/>
             <Input placeholder={"Last name"} {...lastName}/>
             <Input placeholder={"Email"} {...email} type="email"/>
