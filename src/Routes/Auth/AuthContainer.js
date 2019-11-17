@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import useInput from "../../Hooks/useInput";
 import { useMutation } from "react-apollo-hooks";
-import { LOG_IN, CREATE_ACCOUNT } from "./AuthQueries";
-import AuthPresenter from "./AuthPresenter";
 import { toast } from "react-toastify";
+import useInput from "../../Hooks/useInput";
+import AuthPresenter from "./AuthPresenter";
+import { LOG_IN, CREATE_ACCOUNT, CONFIRM_SECRET, LOCAL_LOG_IN } from "./AuthQueries";
 
 export default () => {
   //#POINT0 useState, useInput
@@ -12,7 +12,7 @@ export default () => {
   const firstName = useInput("");
   const lastName = useInput("");
   const secret = useInput("");
-  const email = useInput("okwoyjy@gmail.com");
+  const email = useInput("okwoyjy@naver.com");
   
   //#POINT1: useMutation으로 통신하기 (prisma?)
   // userMutation return value : [createAccountMutation, {loading}]
@@ -29,12 +29,20 @@ export default () => {
     }
   });
 
+  const [confirmSecretMutation] = useMutation(CONFIRM_SECRET, {
+    variables: {
+      email: email.value,
+      secret: secret.value
+    }
+  })
+
+  const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
+
   //#POINT2: sync function에  await key word사용으로 비동기 처리 
   const onSubmit = async e => {
     e.preventDefault();
     if (action === "logIn") {
       if (email !== "") {
-        console.log("1");
         try {
           const {
             data: { requestSecret }
@@ -78,11 +86,28 @@ export default () => {
       } else {
         toast.error("all field are required");
       }
+    } else if (action === "confirm") {
+      if (secret.value !== "") {
+        try {
+          const {
+            data: {confirmSecret: token }
+          } = await confirmSecretMutation();
+          console.log("### IN Authcontainer.js > confirmSecret > token: ", token);
+
+          if (token !== "" && token !== undefined) {
+            localLogInMutation({ variables: { token } });
+          } else {
+            throw Error();
+          }
+        } catch {
+          toast.error("Can't confirm secret, check again");
+        }
+      }
     }
   };
   
-  console.log("### IN AuthContainer > action: ", action);
-  console.log("### IN AuthContainer > email: ", email);
+  // console.log("### IN AuthContainer > action: ", action);
+  // console.log("### IN AuthContainer > email: ", email);
   
   return (
     <AuthPresenter
