@@ -28,7 +28,6 @@ export const CONFIRM_SECRET = gql`
   }
 `;
 
-
 //KEY WORD -> @client: 이곳 Client를 수정하는 방법
 //LocalState.js > logUserIn mutation excute
 export const LOCAL_LOG_IN = gql`
