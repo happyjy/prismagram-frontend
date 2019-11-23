@@ -16,7 +16,6 @@ const Header = styled.header`
   background-color: white;
   border-bottom: ${props => props.theme.boxBorder};
   border-radius: 0px;
-  margin-bottom: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,20 +31,17 @@ const HeaderWrapper = styled.div`
 `;
 
 //&: first-child, last-child: Headercolumn을 쓰는 첫번째 , 마지막 component를 selector
+//text-align:으로 first, last child 위치 조절
 const HeaderColumn = styled.div`
   width: 33%;
   &:first-child {
     margin-right: auto;
+    text-align: left;
   }
 
   &:last-child {
     margin-left: auto;
-  }
-`;
-
-const HeaderLink = styled(Link)`
-  &:not(:last-child) {
-    margin-right: 30px;
+    text-align: right;
   }
 `;
 
@@ -60,6 +56,12 @@ const SearchInput = styled(Input)`
   &::placeholder {
     opacity: 0.8;
     font-weight: 200;
+  }
+`;
+
+const HeaderLink = styled(Link)`
+  &:not(:last-child) {
+    margin-right: 30px;
   }
 `;
 
@@ -91,5 +93,5 @@ export default () => {
         </HeaderColumn>
       </HeaderWrapper>
     </Header>
-  )
-}
+  );
+};
