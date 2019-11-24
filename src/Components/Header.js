@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { gql } from "apollo-boost";
 import Input from "./Input";
 import useInput from "../Hooks/useInput";
 import { Compass, HeartEmpty, User, Home } from "./Icons";
+import { useQuery } from "react-apollo-hooks";
 
 //justify-content: center -  component를 가운데로
 //display: flex - 하위 component를 가로로 늘려 뜨린다. 
@@ -65,8 +67,26 @@ const HeaderLink = styled(Link)`
   }
 `;
 
-export default () => {
+const ME = gql`
+  {
+    me {
+      username
+    }
+  }
+`;
+
+const HeaderComponent = ({history}) => {
+  // console.log("### props in header with withRouter: ", props);// return value: history, location, match obejct
   const search = useInput("");
+  const meQuery = useQuery(ME);
+  console.log("### mequery in Header", meQuery);
+  const onSearchSubmit = e => {
+    // console.log(e);
+    // console.log(search);
+    e.preventDefault();
+    history.push(`/search?term=${search.value}`);
+  };
+
   return (
     <Header>
       <HeaderWrapper>
@@ -76,7 +96,7 @@ export default () => {
           </Link>
         </HeaderColumn>
         <HeaderColumn>
-          <form>
+          <form onSubmit={onSearchSubmit}>
             <SearchInput {...search} placeholder="search"/>
           </form>
         </HeaderColumn>
@@ -95,3 +115,5 @@ export default () => {
     </Header>
   );
 };
+
+export default withRouter(HeaderComponent);
