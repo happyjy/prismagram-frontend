@@ -70,6 +70,7 @@ const HeaderLink = styled(Link)`
 const ME = gql`
   {
     me {
+      id
       username
     }
   }
@@ -78,8 +79,8 @@ const ME = gql`
 const HeaderComponent = ({history}) => {
   // console.log("### props in header with withRouter: ", props);// return value: history, location, match obejct
   const search = useInput("");
-  const meQuery = useQuery(ME);
-  console.log("### mequery in Header", meQuery);
+  const data = useQuery(ME);
+  console.log("### data(useQuery(ME)) in Header", data);
   const onSearchSubmit = e => {
     // console.log(e);
     // console.log(search);
@@ -107,9 +108,15 @@ const HeaderComponent = ({history}) => {
           <HeaderLink to="/notifications">
             <HeartEmpty/>
           </HeaderLink>
-          <HeaderLink to="/username">
-            <User/>
-          </HeaderLink>
+          {!data.me ? (
+            <HeaderLink to="/#">
+              <User />
+            </HeaderLink>
+          ) : (
+            <HeaderLink to={data.me.username}>
+              <User />
+            </HeaderLink>
+          )}
         </HeaderColumn>
       </HeaderWrapper>
     </Header>
