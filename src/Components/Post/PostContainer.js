@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 // import useInput from "../../Hooks/useInput";
 import PostPresenter from "./PostPresenter";
+import useInput from "../../Hooks/useInput";
 
 const PostContainer = ({
   id,
@@ -10,10 +11,29 @@ const PostContainer = ({
   likeCount,
   isLiked,
   comments,
-  // createAt
+  caption,
+  location,
+  createdAt,
 }) => {
-  return <PostPresenter />;
-}
+  const [isLikedS, setIsLiked] = useState(isLiked);
+  const [likeCountS, setLikeCount] = useState(likeCount);
+  const comment = useInput("");
+  return (
+    <PostPresenter 
+      user={user}
+      files={files}
+      isLiked={isLikedS}
+      likeCount={likeCountS}
+      comments={comments}
+      caption={caption}
+      location={location}
+      createdAt={createdAt}
+      newComment={comment}
+      setIsLiked={setIsLiked}
+      setLikeCount={setLikeCount}
+    />
+  );
+};
 
 PostContainer.propTypes = {
   id: PropTypes.string.isRequired,
@@ -39,8 +59,10 @@ PostContainer.propTypes = {
         username: PropTypes.string.isRequired
       }).isRequired
     })
-  ).isRequired
-  // createdAt: Proptypes.string
+  ).isRequired,
+  caption: PropTypes.string.isRequired,
+  location: PropTypes.string,
+  createdAt: PropTypes.string.isRequired
 };
 
 

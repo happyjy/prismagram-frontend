@@ -1,4 +1,5 @@
 import React from "react";
+import Helmet from "react-helmet";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
@@ -30,7 +31,7 @@ const FEED_QUERY = gql`
           username
         }
       }
-      # createdAt
+      createdAt
     }
   }
 `;
@@ -47,12 +48,17 @@ export default () => {
   console.log("### FEED_QEURY: ", { data, loading });
 
   return (
-    <Wrapper className='wrapper'>
+    <Wrapper className='Wrapper'>
+      <Helmet>
+        <title>Feed | Prismagram</title>
+      </Helmet>
       {loading && <Loader/>}
       {!loading && data && data.seeFeed && data.seeFeed.map(post => (
         <Post
           key={post.id}
           id={post.id}
+          caption={post.caption}
+          location={post.location}
           user={post.user}
           files={post.files}
           likeCount={post.likeCount}
