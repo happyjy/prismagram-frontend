@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
 import PostPresenter from "./PostPresenter";
-import { useMutation } from "react-apollo-hooks";
+import { useMutation, useQuery } from "react-apollo-hooks";
 import { TOGGLE_LIKE, ADD_COMMENT } from "./PostQueries";
+import { toast } from "react-toastify";
+import { ME } from "../../SharedQueries";
 
 const PostContainer = ({
   id,
@@ -19,7 +21,9 @@ const PostContainer = ({
   const [isLikedS, setIsLiked] = useState(isLiked);
   const [likeCountS, setLikeCount] = useState(likeCount);
   const [currentItem, setCurrentItem] = useState(0);
+  const [selfComments, setSelfComments] = useState([]);
   const comment = useInput("");
+  const { data } = useQuery(ME);
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     variables: { postId: id }
   });
@@ -49,14 +53,43 @@ const PostContainer = ({
     }
   };
 
-  const onKeyPress = e => {
-    const { keyCode } = e;
-    if(keyCode === 13) {
-      comment.setValue("");
-      //addCommentMutation()
+  /**
+   * fake comment 추가 방법
+   * view, db저장을 따로
+   */
+  // const onKeyPress = event => {
+  //   const { which } = event;
+  //   if ( which === 13 ) {
+  //     event.preventDefault();
+  //     try {
+  //       addCommentMutation();
+  //     } catch {
+  //       toast.error("Can't send comment");
+  //     }
+  //     console.log("### data.me: ", data);
+  //     setSelfComments([...selfComments,
+  //        {id:1,
+  //        text: comment.value,
+  //        user: {username: data.me.username }}]);
+  //     comment.setValue("");
+  //   }
+  // };
+  const onKeyPress = async event => {
+    const { which } = event;
+    if ( which === 13 ) {
+      event.preventDefault();
+      try {
+        const {
+          data: { addComment }
+        } = await addCommentMutation();
+        // console.log("### addComment: ", addComment);
+        setSelfComments([...selfComments, addComment]);
+        comment.setValue("");
+      } catch {
+        toast.error("Can't send comment");
+      }
     }
-    return;
-  }
+  };
 
   return (
     <PostPresenter 
@@ -74,6 +107,7 @@ const PostContainer = ({
       currentItem={currentItem}
       toggleLike={toggleLike}
       onKeyPress={onKeyPress}
+      selfComments={selfComments}
     />
   );
 };

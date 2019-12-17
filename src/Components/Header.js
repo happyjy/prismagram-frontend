@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
-import { gql } from "apollo-boost";
 import Input from "./Input";
 import useInput from "../Hooks/useInput";
 import { Compass, HeartEmpty, User, Home } from "./Icons";
 import { useQuery } from "react-apollo-hooks";
+import { ME } from "../SharedQueries";
 
 //justify-content: center -  component를 가운데로
 //display: flex - 하위 component를 가로로 늘려 뜨린다. 
@@ -65,15 +65,6 @@ const SearchInput = styled(Input)`
 const HeaderLink = styled(Link)`
   &:not(:last-child) {
     margin-right: 30px;
-  }
-`;
-
-const ME = gql`
-  {
-    me {
-      id
-      username
-    }
   }
 `;
 
