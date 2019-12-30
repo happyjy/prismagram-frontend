@@ -1,5 +1,5 @@
 import React from "react";
-import Helmet from "react-helmet";
+import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
@@ -14,8 +14,8 @@ const Wrapper = styled.div`
 
 const Box = styled.div`
   ${props => props.theme.whiteBox}
-  border-radius: 0px;
-  width: 100%
+  border-radius:0px;
+  width: 100%;
   max-width: 350px;
 `;
 
@@ -56,11 +56,12 @@ export default ({
   setAction,
   onSubmit,
   secret
-}) => {
-  // console.log("### IN AuthPresenter.js > action: ", action);
-  return (
-    <Wrapper>
-      <Form>
+}) => (
+    // console.log("### IN AuthPresenter.js > action: ", action);
+
+  <Wrapper>
+    <Form>
+      {action === "logIn" && (
         <>
           <Helmet>
             <title>Log In | Prismagram</title>
@@ -70,7 +71,8 @@ export default ({
             <Button text={"Log in"} />
           </form>
         </>
-        
+      )}
+      {action === "signUp" && (
         <>
           <Helmet>
             <title>Sign Up | Prismagram</title>
@@ -83,7 +85,8 @@ export default ({
             <Button text={"Sign up"} />
           </form>
         </>
-
+      )}
+      {action === "confirm" && (
         <>
           <Helmet>
             <title>Confirm Secret | Prismagram</title>
@@ -93,23 +96,23 @@ export default ({
             <Button text={"Confirm"} />
           </form>
         </>
-      </Form>
-
-      {action !== "confirm" && (
-        <StateChanger>
-          {action === "logIn" ? (
-            <>
-              Don't have an account?{" "}
-              <Link onClick={() => setAction("signUp")}>Sign up</Link>
-            </>
-          ) : (
-            <>
-              Have an account?{" "}
-              <Link onClick={() => setAction("logIn")}>Log in</Link>
-            </>
-          )}
-        </StateChanger>
       )}
-    </Wrapper>
-  );
-};
+    </Form>
+
+    {action !== "confirm" && (
+      <StateChanger>
+        {action === "logIn" ? (
+          <>
+            Don't have an account?{" "}
+            <Link onClick={() => setAction("signUp")}>Sign up</Link>
+          </>
+        ) : (
+          <>
+            Have an account?{" "}
+            <Link onClick={() => setAction("logIn")}>Log in</Link>
+          </>
+        )}
+      </StateChanger>
+    )}
+  </Wrapper>
+);
