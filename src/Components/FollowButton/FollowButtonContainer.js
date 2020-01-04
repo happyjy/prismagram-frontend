@@ -19,6 +19,7 @@ const FollowButtonContainer = ({ isFollowing, id }) => {
       followMutation();
     }
   };
+  
   return <FollowButtonPresenter onClick={onClick} isFollowing={isFollowingS} />;
 };
 
