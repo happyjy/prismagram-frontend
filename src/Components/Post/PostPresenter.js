@@ -177,6 +177,5 @@ export default (
         onChange={newComment.onChange}
         onKeyPress={onKeyPress}/>
     </Meta>
-
   </Post>
 );
