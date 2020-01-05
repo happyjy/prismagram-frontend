@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import TextareaAutosize from 'react-autosize-textarea';
 import FatText from "../FatText";
 import Avatar from "../Avatar";
@@ -13,12 +14,19 @@ const Post = styled.div`
   max-width: 600px;
   user-select: none;
   margin-bottom: 25px;
+  a {
+    color: inherit;
+  }
 `;
 
 const Header = styled.div`
   padding: 15px;
   display: flex;
   align-items: center; 
+`;
+
+const Caption = styled.div`
+  margin: 10px 0px;
 `;
 
 const UserColumn = styled.div`
@@ -113,14 +121,17 @@ export default (
   toggleLike,
   onKeyPress,
   comments,
-  selfComments
+  selfComments,
+  caption
 }) => (
   <Post className="Post">
     <Header>
       <Avatar size="sm" url={avatar} />
       <UserColumn>
         <UserColumn>
-          <FatText text={username} />
+          <Link to={`/${username}`}>
+            <FatText text={username}></FatText>
+          </Link>
           <Location>{location}</Location>
         </UserColumn>
       </UserColumn>
@@ -141,6 +152,9 @@ export default (
         </Button>
       </Buttons>
       <FatText text={likeCount === 1 ? "1 like" : `${likeCount} likes`}></FatText>
+      <Caption>
+        <FatText text={username}> {caption} </FatText>
+      </Caption>
       <Comments>
         {comments && 
           comments.map(comment => (
