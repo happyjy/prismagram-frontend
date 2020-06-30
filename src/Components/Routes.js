@@ -7,7 +7,6 @@ import Explore from '../Routes/Explore';
 import Search from '../Routes/Search';
 import Profile from '../Routes/Profile';
 
-
 const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Feed} />
@@ -16,7 +15,6 @@ const LoggedInRoutes = () => (
     <Route path="/:username" component={Profile} />
     <Redirect from="*" to="/" />
   </Switch>
-
 );
 const LoggedOutRoutes = () => (
   <Switch>

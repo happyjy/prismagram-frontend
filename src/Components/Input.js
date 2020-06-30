@@ -18,8 +18,8 @@ const Input = ({
   required = true,
   value,
   onChange,
-  type = "text",
-  className
+  type = 'text',
+  className,
 }) => (
   <Container
     className={className}
@@ -36,7 +36,7 @@ Input.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 export default Input;

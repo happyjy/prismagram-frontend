@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import { Link, withRouter } from "react-router-dom";
-import Input from "./Input";
-import useInput from "../Hooks/useInput";
-import { Compass, HeartEmpty, User, Home } from "./Icons";
-import { useQuery } from "react-apollo-hooks";
-import { ME } from "../SharedQueries";
+import React from 'react';
+import styled from 'styled-components';
+import { Link, withRouter } from 'react-router-dom';
+import Input from './Input';
+import useInput from '../Hooks/useInput';
+import { Compass, HeartEmpty, User, Home } from './Icons';
+import { useQuery } from 'react-apollo-hooks';
+import { ME } from '../SharedQueries';
 
 //justify-content: center -  component를 가운데로
-//display: flex - 하위 component를 가로로 늘려 뜨린다. 
+//display: flex - 하위 component를 가로로 늘려 뜨린다.
 const Header = styled.header`
   width: 100%;
   border: 0;
@@ -16,7 +16,7 @@ const Header = styled.header`
   top: 0;
   left: 0;
   background-color: white;
-  border-bottom: ${props => props.theme.boxBorder};
+  border-bottom: ${(props) => props.theme.boxBorder};
   border-radius: 0px;
   display: flex;
   justify-content: center;
@@ -25,11 +25,10 @@ const Header = styled.header`
   z-index: 2;
 `;
 
-
 const HeaderWrapper = styled.div`
   width: 100%;
-  max-width: ${props => props.theme.maxWidth};
-  display: flex;  
+  max-width: ${(props) => props.theme.maxWidth};
+  display: flex;
   justify-content: center;
 `;
 
@@ -49,7 +48,7 @@ const HeaderColumn = styled.div`
 `;
 
 const SearchInput = styled(Input)`
-  background-color: ${props => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgColor};
   padding: 5px;
   font-size: 14px;
   border-radius: 3px;
@@ -68,12 +67,12 @@ const HeaderLink = styled(Link)`
   }
 `;
 
-const HeaderComponent = ({history}) => {
+const HeaderComponent = ({ history }) => {
   // console.log("### props in header with withRouter: ", props);// return value: history, location, match obejct
-  const search = useInput("");
+  const search = useInput('');
   const data = useQuery(ME);
-  console.log("### data(useQuery(ME)) in Header.js", data);
-  const onSearchSubmit = e => {
+  console.log('### data(useQuery(ME)) in Header.js', data);
+  const onSearchSubmit = (e) => {
     // console.log(e);
     // console.log(search);
     e.preventDefault();
@@ -85,23 +84,24 @@ const HeaderComponent = ({history}) => {
       <HeaderWrapper>
         <HeaderColumn>
           <Link to="/">
-            <Home/>
+            <Home />
           </Link>
         </HeaderColumn>
         <HeaderColumn>
           <form onSubmit={onSearchSubmit}>
-            <SearchInput 
+            <SearchInput
               value={search.value}
               onChange={search.onChange}
-              placeholder="search"/>
+              placeholder="search"
+            />
           </form>
         </HeaderColumn>
         <HeaderColumn>
           <HeaderLink to="/explore">
-            <Compass/>
+            <Compass />
           </HeaderLink>
           <HeaderLink to="/notifications">
-            <HeartEmpty/>
+            <HeartEmpty />
           </HeaderLink>
           {!data.me ? (
             <HeaderLink to="/#">
