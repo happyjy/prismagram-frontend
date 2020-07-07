@@ -7,8 +7,8 @@ import { Compass, HeartEmpty, User, Home } from './Icons';
 import { useQuery } from 'react-apollo-hooks';
 import { ME } from '../SharedQueries';
 
-//justify-content: center -  component를 가운데로
 //display: flex - 하위 component를 가로로 늘려 뜨린다.
+//justify-content: center -  component를 가운데로
 const Header = styled.header`
   width: 100%;
   border: 0;
@@ -17,7 +17,7 @@ const Header = styled.header`
   left: 0;
   background-color: white;
   border-bottom: ${(props) => props.theme.boxBorder};
-  border-radius: 0px;
+  border-radius: 3px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,6 +71,7 @@ const HeaderComponent = ({ history }) => {
   // console.log("### props in header with withRouter: ", props);// return value: history, location, match obejct
   const search = useInput('');
   const data = useQuery(ME);
+  // debugger;
   console.log('### data(useQuery(ME)) in Header.js', data);
   const onSearchSubmit = (e) => {
     // console.log(e);
