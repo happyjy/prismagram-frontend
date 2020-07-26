@@ -70,8 +70,8 @@ const HeaderLink = styled(Link)`
 const HeaderComponent = ({ history }) => {
   // console.log("### props in header with withRouter: ", props);// return value: history, location, match obejct
   const search = useInput('');
-  const data = useQuery(ME);
-  // debugger;
+  const { data, loading } = useQuery(ME);
+  debugger;
   console.log('### data(useQuery(ME)) in Header.js', data);
   const onSearchSubmit = (e) => {
     // console.log(e);
@@ -104,7 +104,7 @@ const HeaderComponent = ({ history }) => {
           <HeaderLink to="/notifications">
             <HeartEmpty />
           </HeaderLink>
-          {!data.me ? (
+          {loading && !data ? (
             <HeaderLink to="/#">
               <User />
             </HeaderLink>

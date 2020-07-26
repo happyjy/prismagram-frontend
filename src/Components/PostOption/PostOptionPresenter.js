@@ -55,13 +55,13 @@ const modalContentsTextList = [
   { index: 7, label: '취소', type: '2' },
 ];
 
-const modalContentsTextListMe = [
-  { index: 1, label: '게시물로 이동', type: '1' },
-  { index: 2, label: '공유하기', type: '1' },
-  { index: 3, label: '링크 복사', type: '1' },
-  { index: 4, label: '퍼가기', type: '1' },
-  { index: 5, label: '취소', type: '1' },
-];
+// const modalContentsTextListMe = [
+//   { index: 1, label: '게시물로 이동', type: '1' },
+//   { index: 2, label: '공유하기', type: '1' },
+//   { index: 3, label: '링크 복사', type: '1' },
+//   { index: 4, label: '퍼가기', type: '1' },
+//   { index: 5, label: '취소', type: '1' },
+// ];
 
 export default ({
   postOptionContainerDisplay,
