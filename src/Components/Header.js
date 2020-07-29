@@ -71,7 +71,6 @@ const HeaderComponent = ({ history }) => {
   // console.log("### props in header with withRouter: ", props);// return value: history, location, match obejct
   const search = useInput('');
   const { data, loading } = useQuery(ME);
-  debugger;
   console.log('### data(useQuery(ME)) in Header.js', data);
   const onSearchSubmit = (e) => {
     // console.log(e);

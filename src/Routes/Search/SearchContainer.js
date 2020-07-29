@@ -1,21 +1,21 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import SearchPresenter from './SearchPresenter';
-import { useQuery } from "react-apollo-hooks";
-import { SEARCH } from "./SearchQueries";
+import { useQuery } from 'react-apollo-hooks';
+import { SEARCH } from './SearchQueries';
 
 export default withRouter(({ location: { search } }) => {
   //get urls params react
-  console.log("### props in search.js: ", search);
-  const term = search.split("=")[1];
-  console.log({ SEARCH, useQuery })
+  console.log('### props in search.js: ', search);
+  const term = search.split('=')[1];
+  console.log({ SEARCH, useQuery });
   const { data, loading } = useQuery(SEARCH, {
     skip: term === undefined,
     variables: {
-      term
-    }
+      term,
+    },
   });
-  console.log("### SearchContainer.js > data, loading: ")
+  console.log('### SearchContainer.js > data, loading: ');
   console.log({ data, loading });
   return <SearchPresenter searchTerm={term} loading={loading} data={data} />;
 });
