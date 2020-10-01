@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-autosize-textarea';
 import FatText from '../FatText';
+import CaptionBox from '../Caption';
 import Avatar from '../Avatar';
 import PostOption from '../PostOption/index';
 import {
@@ -168,7 +169,7 @@ export default ({
       </Buttons>
       <FatText text={likeCount === 1 ? '1 like' : `${likeCount} likes`} />
       <Caption>
-        <FatText text={username}> {caption} </FatText>
+        <FatText text={username} /> <CaptionBox text={caption} />
       </Caption>
       <Comments>
         {comments &&
