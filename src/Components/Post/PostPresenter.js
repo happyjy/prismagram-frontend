@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-autosize-textarea';
+import PhotoSlide from '../PhotoSlide';
 import FatText from '../FatText';
 import CaptionBox from '../Caption';
 import Avatar from '../Avatar';
@@ -72,6 +73,7 @@ const File = styled.div`
   background-position: center;
   opacity: ${(props) => (props.showing ? 1 : 0)};
   transition: opacity 0.5s linear;
+  border: 1px solid red;
 `;
 
 const Button = styled.span`
@@ -152,12 +154,13 @@ export default ({
         <PostOption />
       </HeaderRight>
     </Header>
-    <Files>
+    <PhotoSlide files={files} />
+    {/* <Files>
       {files &&
-        files.map((file, index) => (
-          <File key={file.id} src={file.url} showing={index === currentItem} />
+        files.map((file, idx) => (
+          <File key={file.id} src={file.url} showing={idx === currentItem} />
         ))}
-    </Files>
+    </Files> */}
     <Meta>
       <Buttons>
         <Button onClick={toggleLike}>
