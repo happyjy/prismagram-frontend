@@ -31,15 +31,15 @@ const PostContainer = ({
   const [addCommentMutation] = useMutation(ADD_COMMENT, {
     variables: { postId: id, text: comment.value },
   });
-  const slide = () => {
-    const totalFiles = files.length;
-    if (currentItem === totalFiles - 1) {
-      setTimeout(() => setCurrentItem(0), 3000);
-    } else {
-      setTimeout(() => setCurrentItem(currentItem + 1), 3000);
-    }
-  };
-  useEffect(slide, [currentItem]);
+  // const slide = () => {
+  //   const totalFiles = files.length;
+  //   if (currentItem === totalFiles - 1) {
+  //     setTimeout(() => setCurrentItem(0), 3000);
+  //   } else {
+  //     setTimeout(() => setCurrentItem(currentItem + 1), 3000);
+  //   }
+  // };
+  // useEffect(slide, [currentItem]);
 
   const toggleLike = () => {
     toggleLikeMutation();

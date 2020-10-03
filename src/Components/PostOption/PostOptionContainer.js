@@ -23,7 +23,7 @@ const PostOptionContainer = () => {
     }
   };
 
-  window.onclick = closeModal;
+  // window.onclick = closeModal;
 
   const cancel = () => {
     setPostOptionContainerDisplay('none');
