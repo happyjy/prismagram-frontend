@@ -41,7 +41,7 @@ const PostContainer = ({
   // };
   // useEffect(slide, [currentItem]);
 
-  const toggleLike = () => {
+  const onToggleLike = () => {
     toggleLikeMutation();
     if (isLikedS === true) {
       setIsLiked(false);
@@ -104,7 +104,7 @@ const PostContainer = ({
       setIsLiked={setIsLiked}
       setLikeCount={setLikeCount}
       currentItem={currentItem}
-      toggleLike={toggleLike}
+      onToggleLike={onToggleLike}
       onKeyPress={onKeyPress}
       selfComments={selfComments}
     />

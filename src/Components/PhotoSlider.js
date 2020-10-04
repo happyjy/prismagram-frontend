@@ -6,8 +6,8 @@ const PhotoSlideContainer = styled.div`
   // max-width: 1000px;
   // position: relative;
   // margin: auto;
+
   position: relative;
-  padding-bottom: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -34,6 +34,7 @@ const NumText = styled.div`
   position: absolute;
   top: 0;
 `;
+
 const ImgDiv = styled.div`
   position: absolute;
   top: 0;
@@ -46,6 +47,7 @@ const ImgDiv = styled.div`
   background-size: cover;
   background-position: center;
 `;
+
 const SlideButton = styled.a`
   cursor: pointer;
   position: absolute;
@@ -97,7 +99,7 @@ const Dot = styled.div`
   transition: background-color 0.6s ease;
 `;
 
-const PhotoSlideShow = ({ files }) => {
+const PhotoSlider = ({ files, from }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const numPhoto = files.length;
 
@@ -118,8 +120,20 @@ const PhotoSlideShow = ({ files }) => {
     setSlideIndex(n);
   }
 
+  const PhotoSlideContainerStyle = (() => {
+    if (from === 'PhotoModal') {
+      return {
+        height: '100%',
+      };
+    } else {
+      return {
+        paddingBottom: '100%',
+      };
+    }
+  })();
+
   return (
-    <PhotoSlideContainer>
+    <PhotoSlideContainer style={PhotoSlideContainerStyle}>
       {files &&
         files.map((file, idx) => {
           // console.log({ file, idx });
@@ -151,12 +165,15 @@ const PhotoSlideShow = ({ files }) => {
               if (idx == slideIndex) {
                 return (
                   <Dot
+                    key={idx}
                     onClick={currentSlide.bind(this, idx)}
-                    style={{ 'background-color': '#0095f6' }}
+                    style={{ backgroundColor: '#0095f6' }}
                   ></Dot>
                 );
               } else {
-                return <Dot onClick={currentSlide.bind(this, idx)}></Dot>;
+                return (
+                  <Dot key={idx} onClick={currentSlide.bind(this, idx)}></Dot>
+                );
               }
             })}
           </DotContainer>
@@ -166,4 +183,4 @@ const PhotoSlideShow = ({ files }) => {
   );
 };
 
-export default PhotoSlideShow;
+export default PhotoSlider;
